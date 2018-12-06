@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/thinkphp5.0/public/static/css/bootstrap.css">
+</head>
+<body class="container">
+<div class="row">
+    <div class="row col-md-offset-1">
+        <div class="col-md-7">
+            <form class="form-inline" method="get" action="index.html">
+                <div class="form-group">
+                    <label for="name" class="sr-only">姓名</label>
+                    <input type="text" name="name" class="form-control" value="{:input('get.name')}" placeholder="姓名。。。">
+                </div>
+                <button class="btn btn-default"><i class="glyphicon glyphicon-search">查询</i></button>
+            </form>
+        </div>
+        <div class="col-md-3 text-right">
+            <a href="{:url('add')}" class="btn btn-primary text-center"><i class="glyphicon glyphicon-plus"></i>增加</a>
+        </div>
+    </div>
+    <hr>
+    <div class="col-md-12">
+
+        <table class="table table-hover table-bordered">
+            <tr class="info">
+                <th>序号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>邮箱</th>
+                <th>用户名</th>
+                <th>操作</th>
+            </tr>
+            {volist name="teachers" id="teacher" key="key"}
+            <tr>
+                <td>{$key}</td>
+                <td>{$teacher->getData('name')}</td>
+                <td>{eq name='$teacher->getData("sex")' value='0'}boy {else /}girl{/eq}</td>
+                <td>{$teacher->getData('email')}</td>
+                <td>{$teacher->getData('username')}</td>
+                <td><a href="{:url('edit?id='.$teacher->getData('id'))}">编辑</a>&nbsp;&nbsp;<a href="{:url('delete?id='.$teacher->getData('id'))}">删除</a></td>
+            </tr>
+            {/volist}
+        </table>
+        <div class="pagination-lg">
+            {$teachers->render()}
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
